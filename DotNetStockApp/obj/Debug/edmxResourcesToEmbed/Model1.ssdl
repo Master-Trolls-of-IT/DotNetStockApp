@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StockAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'StockApp.dbo.ProductsDB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ProductsDB">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="SeriesNumber" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="bigint" />
+    <Property Name="Cost" Type="bigint" />
+    <Property Name="SellingPrice" Type="bigint" />
+    <Property Name="SeriesNumber" Type="bigint" Nullable="false" />
+    <Property Name="ExpirationDate" Type="date" />
+    <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'StockApp.dbo.UsersDB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="UsersDB">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="rights" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="rights" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="StockAppModelStoreContainer">
+    <EntitySet Name="ProductsDB" EntityType="Self.ProductsDB" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ProductsDB].[Name] AS [Name], 
+    [ProductsDB].[Quantity] AS [Quantity], 
+    [ProductsDB].[Cost] AS [Cost], 
+    [ProductsDB].[SellingPrice] AS [SellingPrice], 
+    [ProductsDB].[SeriesNumber] AS [SeriesNumber], 
+    [ProductsDB].[ExpirationDate] AS [ExpirationDate], 
+    [ProductsDB].[Photo] AS [Photo]
+    FROM [dbo].[ProductsDB] AS [ProductsDB]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="UsersDB" EntityType="Self.UsersDB" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [UsersDB].[Name] AS [Name], 
+    [UsersDB].[login] AS [login], 
+    [UsersDB].[rights] AS [rights]
+    FROM [dbo].[UsersDB] AS [UsersDB]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StockAppModelStoreContainer" CdmEntityContainer="StockAppEntities1">
+    <EntitySetMapping Name="ProductsDBs">
+      <EntityTypeMapping TypeName="StockAppModel.ProductsDB">
+        <MappingFragment StoreEntitySet="ProductsDB">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+          <ScalarProperty Name="SeriesNumber" ColumnName="SeriesNumber" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersDBs">
+      <EntityTypeMapping TypeName="StockAppModel.UsersDB">
+        <MappingFragment StoreEntitySet="UsersDB">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="rights" ColumnName="rights" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
