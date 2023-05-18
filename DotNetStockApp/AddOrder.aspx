@@ -23,24 +23,7 @@
                 <asp:Button ID="ValidateProductButton" Text="Validate Product adding to Order !" runat="server" OnClick="ValidateProductButton_Click"/>
             </div>
             <div id="ProductListInOrderId">
-                <asp:Repeater ID="myRepeater" runat="server">
-                    <HeaderTemplate>
-        <div id="RepeaterHeader">
-            <span><b>Product Name</b></span>
-            <span><b>Quantity</b></span>
-            <span></span> <!-- Empty span for spacing purposes -->
-        </div>
-    </HeaderTemplate>
-<ItemTemplate>
-                        <div id="ProductInOrder">
-                            <asp:Label ID="Name" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
-                            <asp:Label ID="Quantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
-                            <asp:Button ID="DeleteProductButton" Text="Delete Product !" runat="server" OnClick="DeleteProductButton_Click" />
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
-
-
+                
                 <asp:GridView ID="productsGridView" runat="server" AutoGenerateColumns="False" OnRowCommand="productsGridView_RowCommand">
     <Columns>
         <asp:TemplateField HeaderText="Product Name">
@@ -51,6 +34,11 @@
         <asp:TemplateField HeaderText="Quantity">
             <ItemTemplate>
                 <asp:Label ID="Quantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Series Number">
+            <ItemTemplate>
+                <asp:Label ID="SeriesNumber" runat="server" Text='<%# Eval("SeriesNumber") %>'></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField HeaderText="">

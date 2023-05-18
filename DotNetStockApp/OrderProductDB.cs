@@ -13,8 +13,9 @@ namespace DotNetStockApp
 
         public long? SeriesNumber { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
+
+        public long? Quantity { get; set; }
 
         public virtual OrdersDb OrdersDb { get; set; }
 

@@ -16,7 +16,6 @@ namespace DotNetStockApp
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long OrderId { get; set; }
 
         [StringLength(50)]

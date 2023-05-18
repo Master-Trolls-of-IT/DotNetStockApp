@@ -52,7 +52,9 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/StockEntries">Enregistrer des entrées de stock</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/StockLevels">Consulter les niveaux de stock</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/CommandManagement">Gestion de commande</a></li>
-
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Logout">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/CreateAccount">Créer un compte</a></li>
 
                     </ul>
                 </div>

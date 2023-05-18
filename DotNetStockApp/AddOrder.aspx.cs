@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
 
 namespace DotNetStockApp
@@ -14,6 +15,10 @@ namespace DotNetStockApp
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!checkUser(User.Identity.Name))
+            {
+                Response.Redirect("Unauthorized.aspx");
+            }
             //Check if the page is loaded for the first time
             if (!IsPostBack)
             {
@@ -58,6 +63,7 @@ namespace DotNetStockApp
                     dataTable = new DataTable();
                     dataTable.Columns.Add("Name");
                     dataTable.Columns.Add("Quantity");
+                    dataTable.Columns.Add("SeriesNumber");
                 }
                 /*
                 foreach (GridViewRow row in productsGridView.Rows)
@@ -74,7 +80,7 @@ namespace DotNetStockApp
                 }*/
                
 
-                dataTable.Rows.Add(product.Name, quantity);
+                dataTable.Rows.Add(product.Name, quantity,product.SeriesNumber);
                 Session["GridViewData"] = dataTable;
                 productsGridView.DataSource = dataTable;
                 productsGridView.DataBind();
@@ -89,7 +95,9 @@ namespace DotNetStockApp
             //Get the Delivery Date
             var deliveryDate = DeliveryDate.Text;
             //Get the Products in the order
-            var products = myRepeater.DataSource as List<object>;
+            DataTable products = (DataTable)Session["GridViewData"];
+
+
             //Create a new order
             using (var context = new DbModel())
             {
@@ -99,7 +107,24 @@ namespace DotNetStockApp
                 //order.Products = products;
                 context.OrdersDbs.Add(order);
                 context.SaveChanges();
+                //Get the order id
+                var orderId = order.OrderId;
+                //Add products to the OrderProductDB table
+                //Go through each product in the products list
+
+                foreach (DataRow row in products.Rows)
+                {
+                    var orderProduct = new OrderProductDB();
+                    orderProduct.OrderId = orderId;
+                    orderProduct.SeriesNumber = int.Parse((string)row["SeriesNumber"]);
+                    orderProduct.Quantity = int.Parse((string)row["Quantity"]);
+                    context.OrderProductDBs.Add(orderProduct);
+                    context.SaveChanges();
+                }
             }
+            Response.Redirect("CommandManagement.aspx");
+
+
 
         }
         protected void DeleteProductButton_Click(object sender, EventArgs ea)
@@ -123,12 +148,37 @@ namespace DotNetStockApp
                 }
             }
         }
+        public bool checkUser(string login)
+        {
+            using (var context = new DbModel())
+            {
+                if (string.IsNullOrEmpty(login))
+                {
+                    return false;
+                }
+
+                var users = context.UsersDBs.ToList();
+                foreach (var user in users)
+                {
+                    if (User.Identity.Name == user.Name)
+                    {
+                        if (user.rights == "admin" || user.rights == "user")
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 
     internal class YourDataType
     {
         public string Name { get; internal set; }
         public int Quantity { get; internal set; }
+        public string SeriesNumber { get; internal set; }
     }
 
     
