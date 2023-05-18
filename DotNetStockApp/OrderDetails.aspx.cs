@@ -24,12 +24,14 @@ namespace DotNetStockApp
             using (var context = new DbModel())
             {
                 var orderDetails = context.OrdersDbs.Where(x => x.OrderId == orderID).ToList();
-                // Get The list of products series number from the order in the OrderProduct table
+                // Get all products
+                var test = context.OrderProductDBs.ToList();
                 var products = context.OrderProductDBs.Where(x => x.OrderId == orderID).ToList();
-                var productsSeriesNumber = products.Select(x => x.ProductSeriesNumber).ToList();
+                var productsSeriesNumber = products.Select(x => x.SeriesNumber).ToList();
                 // Get the number of products in the order
                 int numberOfProducts = products.Count();
                 // Get the total price of the order
+
                 long totalPrice = 0;
                 foreach (var product in productsSeriesNumber)
                 {
@@ -75,7 +77,7 @@ namespace DotNetStockApp
                 }
 
 
-
+                lblOrderID.Text = orderID.ToString();
                 GridView1.DataSource = showDetails;
                 GridView1.DataBind();
             }
@@ -104,6 +106,12 @@ namespace DotNetStockApp
             }
 
             return false;
+        }
+
+        protected void GoBack_Click(object sender, EventArgs e)
+        {
+            //Function that goes back to the previous page
+            Response.Redirect("CommandManagement.aspx");
         }
     }
 

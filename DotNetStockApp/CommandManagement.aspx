@@ -7,36 +7,13 @@
     <div id="CommandListContainer">
         <div id="OrderList">
 
-           
-
-            
-
-           
-
-
-           
-
             <asp:GridView ID="GridView1" AllowSorting="True" OnSorting="GridView1_OnSorting" OnRowDataBound="GridView1_RowDataBound" runat="server">
-                
-
             </asp:GridView>
-
-           
-
-            
-
-           
-
-
-           
 
         </div>
         
-        <div id="OrderSummaryContainer">
-
-            <asp:GridView ID="OrderDetailContainer" runat="server">
-            </asp:GridView>
-            <asp:TextBox ID="test" runat="server">test</asp:TextBox>
+        <div id="AddOrderDiv">
+            <asp:Button runat="server" ID="AddOrderButton" Text="Add Order !" OnClick="AddOrderButton_Click"/>
         </div>
 
 

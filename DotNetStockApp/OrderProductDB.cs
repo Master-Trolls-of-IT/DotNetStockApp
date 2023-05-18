@@ -11,7 +11,7 @@ namespace DotNetStockApp
     {
         public long? OrderId { get; set; }
 
-        public long? ProductSeriesNumber { get; set; }
+        public long? SeriesNumber { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }

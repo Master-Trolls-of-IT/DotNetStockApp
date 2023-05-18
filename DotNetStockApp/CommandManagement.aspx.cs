@@ -41,7 +41,6 @@ namespace DotNetStockApp
                 // Add a JavaScript function to the onclick attribute of the row.
                 e.Row.Attributes["onclick"] = "location.href='OrderDetails.aspx?OrderID=" + orderID + "';";
                 e.Row.Style["cursor"] = "pointer";
-                test.Text = orderID.ToString();
             }
         }
 
@@ -120,6 +119,12 @@ namespace DotNetStockApp
                 GridView1.DataSource = data.OrderByDescending(x => x.GetType().GetProperty(e.SortExpression).GetValue(x, null));
                 GridView1.DataBind();
             }
+        }
+
+        protected void AddOrderButton_Click(object sender, EventArgs e)
+        {
+            // This is a redirect to the AddOrder page
+            Response.Redirect("AddOrder.aspx");
         }
     }
 }
