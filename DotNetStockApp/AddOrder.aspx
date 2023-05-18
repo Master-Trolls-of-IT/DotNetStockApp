@@ -24,14 +24,46 @@
             </div>
             <div id="ProductListInOrderId">
                 <asp:Repeater ID="myRepeater" runat="server">
+                    <HeaderTemplate>
+        <div id="RepeaterHeader">
+            <span><b>Product Name</b></span>
+            <span><b>Quantity</b></span>
+            <span></span> <!-- Empty span for spacing purposes -->
+        </div>
+    </HeaderTemplate>
 <ItemTemplate>
                         <div id="ProductInOrder">
-                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
-                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+                            <asp:Label ID="Name" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+                            <asp:Label ID="Quantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                             <asp:Button ID="DeleteProductButton" Text="Delete Product !" runat="server" OnClick="DeleteProductButton_Click" />
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
+
+
+                <asp:GridView ID="productsGridView" runat="server" AutoGenerateColumns="False" OnRowCommand="productsGridView_RowCommand">
+    <Columns>
+        <asp:TemplateField HeaderText="Product Name">
+            <ItemTemplate>
+                <asp:Label ID="Name" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Quantity">
+            <ItemTemplate>
+                <asp:Label ID="Quantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="">
+            <ItemTemplate>
+                <asp:Button ID="DeleteProductButton" Text="Delete Product !" runat="server" CommandName="DeleteProduct" CommandArgument='<%# Container.DataItemIndex %>' />
+            </ItemTemplate>
+        </asp:TemplateField>
+    </Columns>
+    <HeaderStyle CssClass="grid-header" />
+</asp:GridView>
+
+
+               
 
             </div>
             <asp:Button ID="Button1" runat="server" Text="validate Order !" OnClick="Button1_Click" />

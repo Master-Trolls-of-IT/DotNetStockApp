@@ -1,6 +1,7 @@
 ﻿using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -26,8 +27,6 @@ namespace DotNetStockApp
                     }
                     DropDownList1.DataBind();
                 }
-
-                myRepeater.ItemDataBound += myRepeater_ItemDataBound;
             }
            
 
@@ -47,59 +46,38 @@ namespace DotNetStockApp
                 // Get the product with the selected series number
                 var product = products.Where(x => x.SeriesNumber.ToString() == selectedProduct).FirstOrDefault();
                 //Add a new row to the existing data in the repeater
-                List<YourDataType> list = new List<YourDataType>();
-                if (Session["RepeaterData"] != null)
+                
+
+                DataTable dataTable;
+                if (Session["GridViewData"] != null)
                 {
-                    list = (List<YourDataType>)Session["RepeaterData"];
+                    dataTable = (DataTable)Session["GridViewData"];
                 }
                 else
                 {
-                    list = new List<YourDataType>();
+                    dataTable = new DataTable();
+                    dataTable.Columns.Add("Name");
+                    dataTable.Columns.Add("Quantity");
                 }
                 /*
-                List<YourDataType> dataSource = myRepeater.DataSource as List<YourDataType>;
-                if (dataSource != null)
+                foreach (GridViewRow row in productsGridView.Rows)
                 {
-                    foreach (YourDataType data in dataSource)
+                    Label nameLabel = (Label)row.FindControl("Name");
+                    Label quantityLabel = (Label)row.FindControl("Quantity");
+
+                    if (nameLabel != null && quantityLabel != null)
                     {
-                        list.Add(data);
+                        string name = nameLabel.Text;
+                        int existingQuantity = int.Parse(quantityLabel.Text);
+                        dataTable.Rows.Add(name, existingQuantity);
                     }
                 }*/
-               /*
-                foreach(RepeaterItem item in myRepeater.Items)
-                {
-                    //Get Name and Quantity from the repeater
-                    var name = (Label)item.FindControl("Name");
+               
 
-                    var quantityLabel = (Label)item.FindControl("Quantity");
-
-                    //Add the existing data to the list
-                    if (quantityLabel != null && name != null)
-                    {
-                        list.Add(new
-                        {
-                            Name = name.Text,
-                            Quantity = quantityLabel.Text,
-                        });
-                    } else
-                    {
-                        list.Add(new
-                        {
-                            Name = "No products added",
-                            Quantity = "0",
-                        });
-                    }
-
-                }*/
-                list.Add(new YourDataType
-                {
-                    Name = product.Name,
-                    Quantity = quantity,
-                });
-                Session["RepeaterData"] = list;
-                myRepeater.DataSource = list;
-                
-                myRepeater.DataBind();
+                dataTable.Rows.Add(product.Name, quantity);
+                Session["GridViewData"] = dataTable;
+                productsGridView.DataSource = dataTable;
+                productsGridView.DataBind();
             }
         }
 
@@ -128,26 +106,22 @@ namespace DotNetStockApp
         {
             throw new NotImplementedException();
         }
-        protected void myRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected void productsGridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            if (e.CommandName == "DeleteProduct")
             {
-                var dataSource = myRepeater.DataSource as List<object>;
+                int rowIndex = int.Parse(e.CommandArgument.ToString());
 
-                // Access the controls inside the repeater item
-                e.Item.DataBind();
-                /*var Quantity = e.Item.DataItem as string;
-
-                // Bind the data to the controls
-                if (Name != null && Quantity != null)
+                DataTable dataTable = (DataTable)Session["GridViewData"];
+                if (dataTable != null && rowIndex >= 0 && rowIndex < dataTable.Rows.Count)
                 {
-                    var dataItem = (YourDataType)e.Item.DataItem; // Replace YourDataType with the appropriate data type
-                    Name = dataItem.Name;
-                    Quantity = dataItem.Quantity.ToString();
+                    dataTable.Rows.RemoveAt(rowIndex);
+                    Session["GridViewData"] = dataTable;
+
+                    productsGridView.DataSource = dataTable;
+                    productsGridView.DataBind();
                 }
-                e.Item.DataBind();*/
             }
-           
         }
     }
 
@@ -157,12 +131,5 @@ namespace DotNetStockApp
         public int Quantity { get; internal set; }
     }
 
-    internal class DataTable
-    {
-        public List<object> Rows { get; internal set; }
-        public DataTable()
-        {
-            Rows = new List<object>();
-        }
-    }
+    
 }

@@ -60,13 +60,13 @@ namespace DotNetStockApp
         protected global::System.Web.UI.WebControls.Button ValidateProductButton;
 
         /// <summary>
-        /// myRepeater control.
+        /// productsGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater myRepeater;
+        protected global::System.Web.UI.WebControls.GridView productsGridView;
 
         /// <summary>
         /// Button1 control.
