@@ -19,39 +19,29 @@ namespace DotNetStockApp
             {
                 using (var context = new  DbModel())
                 {
-                    /*
-                    // Add values to the products DB
-                    ProductsDB firstProduct = new ProductsDB
-                    {
-                        Name = "test",
-                        Quantity = 1,
-                        Cost = 1,
-                        SellingPrice = 1,
-                        SeriesNumber = 1,
-                        ExpirationDate = DateTime.Now,
-
-                    };
-                    
-                    context.ProductsDBs.Add(firstProduct);
-                    context.SaveChanges();
-             */
                     var products = context.ProductsDBs.ToList();
+                    int count = 0;
                     foreach (var product in products)
                     {
                         Series series = new Series(product.Name + product.SeriesNumber);
-                        
-
-
-                        series.Label = product.Name + " (series number : " + product.SeriesNumber + " )"; 
-                        
                         series.AxisLabel = "Produits";
-                      
 
-                        
                         series.Points.Add((double)product.Quantity);
+                        // Add value to point
+                        series.Label = product.Quantity.ToString();
                         Chart1.Series.Add(series);
                     }
-                    
+                    Chart1.Legends.Add(new Legend("Legend1"));
+                    Chart1.Legends["Legend1"].Docking = Docking.Bottom;
+                    Chart1.Legends["Legend1"].Alignment = System.Drawing.StringAlignment.Center;
+                    Chart1.Legends["Legend1"].BorderColor = Color.Black;
+                    Chart1.Legends["Legend1"].BorderWidth = 1;
+                    Chart1.Legends["Legend1"].BorderDashStyle = ChartDashStyle.Solid;
+                    Chart1.Legends["Legend1"].ShadowColor = Color.Black;
+                    Chart1.Legends["Legend1"].ShadowOffset = 1;
+                    Chart1.Legends["Legend1"].Font = new Font("Arial", 8.0f, FontStyle.Bold);
+                    Chart1.Legends["Legend1"].BackColor = Color.Gray;
+                    Chart1.BackColor = Color.DarkGray;
                     Chart1.DataBind();
 
                   

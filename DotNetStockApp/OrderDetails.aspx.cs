@@ -79,6 +79,7 @@ namespace DotNetStockApp
 
                 lblOrderID.Text = orderID.ToString();
                 GridView1.DataSource = showDetails;
+                GridView1.CssClass = "table";
                 GridView1.DataBind();
             }
         }

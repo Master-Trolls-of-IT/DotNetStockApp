@@ -114,6 +114,7 @@
     <Content Include="AddOrder.aspx" />
     <Content Include="CommandManagement.aspx" />
     <Content Include="Contact.aspx" />
+    <Content Include="Content\AddOrderStyle.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -130,7 +131,17 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\CommandManagementStyle.css" />
+    <Content Include="Content\CreateAccountStyle.css" />
+    <Content Include="Content\DefaultStyle.css" />
+    <Content Include="Content\EditStyle.css" />
+    <Content Include="Content\LoginStyle.css" />
+    <Content Include="Content\LogoutStyle.css" />
+    <Content Include="Content\OrderDetailsStyle.css" />
+    <Content Include="Content\ProductManagementSyle.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\StockEntries.css" />
+    <Content Include="Content\StockLevels.css" />
     <Content Include="Content\style.css" />
     <Content Include="CreateAccount.aspx" />
     <Content Include="Default.aspx" />

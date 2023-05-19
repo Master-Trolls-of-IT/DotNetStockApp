@@ -122,6 +122,24 @@ namespace DotNetStockApp
                 var product = context.ProductsDBs.FirstOrDefault(p => p.Name == DropDownList1.SelectedValue);
                 if (product != null)
                 {
+                    //Delete all references to the product in the order products table
+                    var orderProducts = context.OrderProductDBs.ToList();
+                    foreach (var orderProduct in orderProducts)
+                    {
+                        if (orderProduct.SeriesNumber == product.SeriesNumber)
+                        {
+                            context.OrderProductDBs.Remove(orderProduct);
+                            //delete the order associated with the order product
+                            var orders = context.OrdersDbs.ToList();
+                            foreach (var order in orders)
+                            {
+                                if (order.OrderId == orderProduct.OrderId)
+                                {
+                                    context.OrdersDbs.Remove(order);
+                                }
+                            }
+                        }
+                    }
                     context.ProductsDBs.Remove(product);
                     context.SaveChanges();
                 }
@@ -134,5 +152,7 @@ namespace DotNetStockApp
 
 
         }
+
+    
     }
 }

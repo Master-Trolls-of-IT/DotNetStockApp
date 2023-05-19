@@ -97,7 +97,13 @@ namespace DotNetStockApp
             //Get the Products in the order
             DataTable products = (DataTable)Session["GridViewData"];
 
-
+            //Check that all the fields are filled
+            if (string.IsNullOrEmpty(customerName) || string.IsNullOrEmpty(deliveryDate) || products == null)
+            {
+                //Show an error message
+                ErrorMessage.Text = "Please fill all the fields";
+                return;
+            }
             //Create a new order
             using (var context = new DbModel())
             {

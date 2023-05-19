@@ -46,6 +46,30 @@ namespace DotNetStockApp
                 {
                     if (product.SeriesNumber.ToString() == Request.QueryString["SeriesNumber"])
                     {
+                        //Remove All orders that contain the product
+                        var orders = context.OrdersDbs.ToList();
+                        //Go through the Order Product Table
+                        var orderProducts = context.OrderProductDBs.ToList();
+                        foreach(var el in orderProducts)
+                        {
+                            //If the product is in the order
+                            if (el.SeriesNumber == product.SeriesNumber)
+                            {
+                                //Remove the order
+                                foreach (var order in orders)
+                                {
+                                    if (order.OrderId == el.OrderId)
+                                    {
+                                        context.OrdersDbs.Remove(order);
+                                        context.SaveChanges();
+                                    }
+                                }
+                                //Remove the order product
+                                context.OrderProductDBs.Remove(el);
+                                context.SaveChanges();
+                            }
+                        }
+
                         context.ProductsDBs.Remove(product);
                         context.SaveChanges();
                     }

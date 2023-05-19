@@ -55,6 +55,13 @@ namespace DotNetStockApp
                 user.login = Login.Text;
                 //Get the right from the dropdownlist
                 user.rights = Rights.SelectedValue;
+                //check that all the fields are filled
+                if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.password) || string.IsNullOrEmpty(user.login) || string.IsNullOrEmpty(user.rights))
+                {
+                    //write error message
+                    Error.Text = "Please fill all the fields";
+                    return;
+                }
                 context.UsersDBs.Add(user);
                 context.SaveChanges();
             }

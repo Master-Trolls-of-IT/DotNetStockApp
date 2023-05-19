@@ -20,7 +20,11 @@ namespace DotNetStockApp
         {
             if (ValidateUser(Login1.UserName, Login1.Password))
             {
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, false, "ProductManagement.aspx");
+                //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true, "ProductManagement.aspx");
+                
+                FormsAuthentication.SetAuthCookie(Login1.UserName, true);
+                //redirect to the page
+                Response.Redirect("Default.aspx");
             }
             else
             {

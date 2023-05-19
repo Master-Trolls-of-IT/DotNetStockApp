@@ -2,15 +2,14 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <head>
-        <link rel="stylesheet" href="Content/style.css" type="text/css" />
+        <link rel="stylesheet" href="Content/StockEntries.css?Version=1" type="text/css" />
     </head>
-    <div id="MenuAndEditContainer">
-        <div id="Menu">
+    <div class="box">
+        <div class="content">
             
-            <asp:Table ID="ProductTable" runat="server">
+            <asp:Table class="table" ID="ProductTable" runat="server">
             </asp:Table>
             
         </div>
-        <div id="Edit"></div>
     </div>
 </asp:Content>
